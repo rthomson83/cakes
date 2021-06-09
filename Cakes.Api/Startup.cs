@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Cakes.Business;
 using Cakes.Data;
@@ -50,6 +51,11 @@ namespace Cakes.Api
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(policy =>
+            {
+                policy.WithOrigins("http://localhost:5000", "http://localhost:8080");
+            });
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Route } from 'react-router';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
-import { FetchData } from './components/FetchData';
-import { Counter } from './components/Counter';
 
 import './custom.css'
+import {View} from "./components/View";
+import {CakeForm} from "./components/CakeForm";
 
 export default class App extends Component {
   static displayName = App.name;
@@ -14,8 +14,8 @@ export default class App extends Component {
     return (
       <Layout>
         <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetch-data' component={FetchData} />
+        <Route path='/cake/:id' component={View} />
+        <Route path='/new-cake' component={CakeForm} />
       </Layout>
     );
   }

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import {Button, Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 
@@ -19,7 +19,7 @@ export function NavMenu() {
           <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!collapsed} navbar>
             <ul className="navbar-nav flex-grow">
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/new-cake">New Cake</NavLink>
+                <NavLink tag={Link} className="text-dark" to="/new-cake"><Button color="secondary" size="sm">New Cake</Button></NavLink>
               </NavItem>
             </ul>
           </Collapse>

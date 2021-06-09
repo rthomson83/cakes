@@ -11,7 +11,7 @@ services:
     ports:
       - 8080:80
     environment:
-    REACT_APP_API_URL: http://cakes_api:8082
+      - REACT_APP_API_URL=http://cakes_api:8082
   cakes_api:
     container_name: cakes_api
     image: cakesapi

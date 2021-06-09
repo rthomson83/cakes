@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Cakes.Api.Models;
 using Cakes.Business;
 using Cakes.Data;
 using Cakes.Models.Settings;
@@ -31,7 +32,22 @@ namespace Cakes.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().ConfigureApiBehaviorOptions(opts =>
+            {
+                opts.InvalidModelStateResponseFactory = context => new ValidationErrorResult(context.ModelState);
+            });
+            services.AddCors(options =>
+            { 
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:5000", "http://localhost:8080")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowCredentials();
+                    });
+            });
+
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Cakes.Api", Version = "v1"}); });
             services.Configure<DatabaseSettings>(Configuration.GetSection("Database"));
             services.TryAddScoped<CakesContext>();
@@ -49,13 +65,10 @@ namespace Cakes.Api
             }
 
             app.UseRouting();
+            
+            app.UseCors();
 
             app.UseAuthorization();
-
-            app.UseCors(policy =>
-            {
-                policy.WithOrigins("http://localhost:5000", "http://localhost:8080");
-            });
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

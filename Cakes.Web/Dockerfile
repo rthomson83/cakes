@@ -18,6 +18,8 @@ COPY . .
 WORKDIR "/src/Cakes.Web"
 RUN dotnet build "Cakes.Web.csproj" -c Release -o /app/build
 
+ENV REACT_APP_API_URL=http://localhost:8082
+
 FROM build AS publish
 RUN dotnet publish "Cakes.Web.csproj" -c Release -o /app/publish
 

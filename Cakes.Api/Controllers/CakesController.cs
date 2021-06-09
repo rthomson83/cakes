@@ -33,11 +33,8 @@ namespace Cakes.Api.Controllers
         }
         
         [HttpPost]
-        public async Task<ActionResult<Cake>> GetCakeAsync(Cake cake)
+        public async Task<ActionResult<Cake>> AddCakeAsync(Cake cake)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            
             if (await _cakesRepository.CakeExistsAsync(cake.Name))
                 return Conflict("Cake already exists");
             
@@ -50,10 +47,7 @@ namespace Cakes.Api.Controllers
         {
             if (id != cake.Id)
                 return BadRequest("Id mismatch");
-            
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            
+
             await _cakesRepository.UpdateCakeAsync(cake);
 
             return NoContent();

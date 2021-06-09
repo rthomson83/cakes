@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Cakes.Data;
 using Cakes.Models;
+using MongoDB.Driver;
 
 namespace Cakes.Business
 {
@@ -14,34 +15,41 @@ namespace Cakes.Business
             _context = context;
         }
         
-        public Task<List<Cake>> GetCakesAsync()
+        public async Task<List<Cake>> GetCakesAsync()
         {
-            throw new System.NotImplementedException();
+            return await _context.Cakes.Find(FilterDefinition<Cake>.Empty).ToListAsync();
         }
 
-        public Task<Cake> GetCakeAsync(int id)
+        public async Task<Cake> GetCakeAsync(int id)
         {
-            throw new System.NotImplementedException();
+            var filter = Builders<Cake>.Filter.Eq(x => x.Id, id);
+            return await _context.Cakes.Find(filter).FirstOrDefaultAsync();
         }
 
-        public Task<Cake> AddCakeAsync(Cake cake)
+        public async Task<Cake> AddCakeAsync(Cake cake)
         {
-            throw new System.NotImplementedException();
+            cake.Id = await _context.GetNextSequenceAsync("id");
+            await _context.Cakes.InsertOneAsync(cake);
+            return cake;
         }
 
-        public Task<Cake> UpdateCakeAsync(Cake cake)
+        public async Task<Cake> UpdateCakeAsync(Cake cake)
         {
-            throw new System.NotImplementedException();
+            var filter = Builders<Cake>.Filter.Eq(x => x.Id, cake.Id);
+            await _context.Cakes.ReplaceOneAsync(filter, cake);
+            return cake;
         }
 
-        public Task RemoveCakeAsync(int id)
+        public async Task RemoveCakeAsync(int id)
         {
-            throw new System.NotImplementedException();
+            var filter = Builders<Cake>.Filter.Eq(x => x.Id, id);
+            await _context.Cakes.DeleteOneAsync(filter);
         }
 
-        public Task<bool> CakeExistsAsync(string name)
+        public async Task<bool> CakeExistsAsync(string name)
         {
-            throw new System.NotImplementedException();
+            var filter = Builders<Cake>.Filter.Eq(x => x.Name, name);
+            return await _context.Cakes.CountDocumentsAsync(filter) > 0;
         }
     }
 }

@@ -42,7 +42,7 @@ namespace Cakes.Api.Controllers
                 return Conflict("Cake already exists");
             
             var item = await _cakesRepository.AddCakeAsync(cake);
-            return CreatedAtAction(nameof(GetCakeAsync), new {id = item.Id} ,item);
+            return CreatedAtAction("GetCake", new {id = item.Id} ,item);
         }
 
         [HttpPut("{id:int}")]

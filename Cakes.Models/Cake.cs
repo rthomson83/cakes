@@ -14,6 +14,7 @@ namespace Cakes.Models
         public string Comment { get; set; }
         [Required]
         public string ImageUrl { get; set; }
-        public string YumFactor { get; set; }
+        [Range(1, 5)]
+        public int YumFactor { get; set; }
     }
 }

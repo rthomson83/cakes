@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import useAxios from "axios-hooks";
-import {Button, Form, FormFeedback, FormGroup, Input, Label} from "reactstrap";
+import {Alert, Button, Form, FormFeedback, FormGroup, Input, Label} from "reactstrap";
 import {useHistory} from "react-router-dom";
 
 export function CakeForm() {
@@ -20,6 +20,7 @@ export function CakeForm() {
     );
     
     const validationErrors = error && error.response.data
+    const isDuplicateError = error && error.response.status === 409;
     
     const handleChange = (event) => {
         const {target} = event;
@@ -38,17 +39,16 @@ export function CakeForm() {
     };
     
     const hasError = (fieldName) => {
-        return validationErrors && validationErrors.errors.some(x => x.field === fieldName);
+        return validationErrors && validationErrors.errors?.some(x => x.field === fieldName) || false;
     }
     
     const getErrorMessage = (fieldName) => {
-        return validationErrors && validationErrors.errors.find(x => x.field === fieldName)?.message;
+        return validationErrors && validationErrors.errors?.find(x => x.field === fieldName)?.message;
     }
     
     return (
         <>
             <h2>Add new cake</h2>
-            <p>{validationErrors && validationErrors.message}</p>
             <Form>
                 <FormGroup>
                     <Label for="name">Name</Label>
@@ -70,7 +70,12 @@ export function CakeForm() {
                     <Input type="number" min="1" max="5" name="yumFactor" id="yumFactor" placeholder="Enter a yum factor between 1 and 5" value={cake.yumFactor} invalid={hasError("yumFactor")} onChange={handleChange} />
                     <FormFeedback>{getErrorMessage("yumFactor")}</FormFeedback>
                 </FormGroup>
-                <Button onClick={submit}>Submit</Button>
+                <FormGroup>
+                    <Button onClick={submit}>Submit</Button>
+                </FormGroup>
+                <FormGroup>
+                    {isDuplicateError && <Alert color="danger">A cake with this name already exists, maybe try a different name?</Alert>}
+                </FormGroup>
             </Form>
         </>
 

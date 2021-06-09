@@ -4,7 +4,7 @@ import useAxios from 'axios-hooks'
 import {Card, CardBody, CardColumns, CardImg, CardTitle, Spinner} from "reactstrap";
 
 export function Home() {
-    const[{data, loading, error}] = useAxios(`${process.env.REACT_APP_API_URL}/cakes`);
+    const[{data, loading, error}] = useAxios(`${process.env.REACT_APP_API_URL}/cakes`, { useCache: false});
     const history = useHistory();
     
     if (loading) return <Spinner type="grow" color="primary" />

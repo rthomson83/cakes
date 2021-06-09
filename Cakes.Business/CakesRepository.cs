@@ -49,7 +49,7 @@ namespace Cakes.Business
         public async Task<bool> CakeExistsAsync(string name)
         {
             var filter = Builders<Cake>.Filter.Eq(x => x.Name, name);
-            return await _context.Cakes.CountDocumentsAsync(filter) > 0;
+            return await _context.Cakes.CountDocumentsAsync(filter, new CountOptions { Collation = new Collation(locale: "en", strength: CollationStrength.Secondary)}) > 0;
         }
     }
 }

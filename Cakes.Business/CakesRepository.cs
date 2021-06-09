@@ -17,7 +17,7 @@ namespace Cakes.Business
         
         public async Task<List<Cake>> GetCakesAsync()
         {
-            return await _context.Cakes.Find(FilterDefinition<Cake>.Empty).ToListAsync();
+            return await _context.Cakes.Find(FilterDefinition<Cake>.Empty).SortBy(x => x.Name).ToListAsync();
         }
 
         public async Task<Cake> GetCakeAsync(int id)

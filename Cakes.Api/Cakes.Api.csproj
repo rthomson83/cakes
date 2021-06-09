@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Cakes.Business\Cakes.Business.csproj" />
+      <ProjectReference Include="..\Cakes.Data\Cakes.Data.csproj" />
+      <ProjectReference Include="..\Cakes.Models\Cakes.Models.csproj" />
+    </ItemGroup>
+
+</Project>

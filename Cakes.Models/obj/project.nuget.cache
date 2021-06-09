@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "SrMxEIlZGvqHflDeo1gXpXKmNdDov15hJwBObkBOYz2yxF/nshm8WwTgJGq78bkp34z5O81IMQq6ltyyYABK+g==",
+  "success": true,
+  "projectFilePath": "C:\\Repos\\cakes-test\\Cakes.Models\\Cakes.Models.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\rober\\.nuget\\packages\\mongodb.bson\\2.12.4\\mongodb.bson.2.12.4.nupkg.sha512",
+    "C:\\Users\\rober\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
